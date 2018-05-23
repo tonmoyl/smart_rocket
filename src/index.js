@@ -12,5 +12,5 @@ document.addEventListener('DOMContentLoaded', () => {
   var ctx = canvas.getContext("2d");
   game.createRockets(ctx);
 
-  setInterval(game.draw, 100);
+  setInterval(game.draw, 10);
 })
