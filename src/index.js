@@ -1,10 +1,16 @@
 import UTIL from "lodash";
+import Rocket from './rocket';
+import Game from './game';
+
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log("coming from index");
+  let game = new Game(ctx);
+
+
   var canvas = document.getElementById("canvas");
-  canvas.style.border = "1px dotted red";
   var ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#FF0000";
-  ctx.fillRect(20, 20, 150, 100);
+  game.createRockets(ctx);
+
+  setInterval(game.draw, 100);
 })
