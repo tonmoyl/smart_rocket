@@ -1,5 +1,4 @@
 import UTIL from "lodash";
-import Rocket from './rocket';
 import Game from './game';
 
 
@@ -11,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var canvas = document.getElementById("canvas");
   var ctx = canvas.getContext("2d");
   game.createRockets(ctx);
+  game.createBarrier(ctx);
 
   setInterval(game.draw, 10);
 })

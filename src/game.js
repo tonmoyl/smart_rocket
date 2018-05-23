@@ -1,4 +1,5 @@
 import Rocket from './rocket';
+import Barrier from './barrier';
 
 export default class Game {
   constructor(ctx) {
@@ -11,6 +12,8 @@ export default class Game {
     this.ctx = ctx;
     this.draw = this.draw.bind(this);
     this.rocketIds = [];
+    this.barrier = null;
+    this.totalBarriers = 1;
   }
 
   createRockets(ctx) {
@@ -19,14 +22,39 @@ export default class Game {
       this.rocketIds.push(i);
       this.rockets[i] = rocket;
     }
-    console.log(this.rockets)
+  }
 
+  createBarrier(ctx) {
+    this.barrier = new Barrier(ctx);
+  }
+
+  drawRockets() {
+    for (var i = 0; i < this.rocketIds.length; i++) {
+      let rocketPos = this.rockets[i].pos;
+      let collided = this.barrier.collisionDetection(this.rockets[i]);
+      console.log(collided);
+      if (
+        // This stops the rockets from extending it outside of the canvas
+        // (rocketPos[0] > 0 &&
+        // rocketPos[0] < this.canvasWidth &&
+        // rocketPos[1] > 0 ) ||
+        !collided
+        // this stops the rocket from extending past a barrier
+      ) {
+        this.rockets[i].launch();
+
+      } else {
+      }
+    }
+  }
+
+  drawBarrier() {
+    this.barrier.draw();
   }
 
   draw() {
-    for (var i = 0; i < this.rocketIds.length; i++) {
-      this.rockets[i].launch();
-    }
+    this.drawRockets();
+    this.drawBarrier();
   }
 
 }

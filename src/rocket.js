@@ -2,7 +2,6 @@
 
 export default class Rocket {
   constructor(ctx) {
-    console.log("Coming from the rocket")
     this.height = 30;
     this.weight = 10;
     this.canvasHeight = document.getElementById('canvas').height;
@@ -11,6 +10,7 @@ export default class Rocket {
     this.ctx = ctx;
     this.vel = this.generateRandomVelocity(5);
     this.color = this.getRandomColor();
+    console.log(this.color);
 
   }
 
