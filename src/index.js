@@ -1,13 +1,10 @@
 import UTIL from "lodash";
 
-function component() {
-  var element = document.createElement('div');
-
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = UTIL.join(['Hello', 'webpack'], ' ');
-
-
-  return element;
-}
-
-document.body.appendChild(component());
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("coming from index");
+  var canvas = document.getElementById("canvas");
+  canvas.style.border = "1px dotted red";
+  var ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#FF0000";
+  ctx.fillRect(20, 20, 150, 100);
+})
