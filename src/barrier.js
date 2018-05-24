@@ -2,7 +2,7 @@
 export default class Barrier {
   constructor(ctx) {
     this.width = 600;
-    this.height = 300;
+    this.height = 10;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
@@ -17,12 +17,18 @@ export default class Barrier {
   }
 
   collisionDetection(rocket) {
-    if (rocket.pos[0] > this.pos[0] &&
-        rocket.pos[0] < this.pos[0] + this.width &&
-        rocket.pos[1] > this.pos[1] &&
-        rocket.pos[1] < this.pos[1] + this.height
+    if (rocket.pos[0] - rocket.radius > this.pos[0] &&
+        rocket.pos[0] - rocket.radius < this.pos[0] + this.width &&
+        rocket.pos[1] - rocket.radius > this.pos[1] &&
+        rocket.pos[1] - rocket.radius < this.pos[1] + this.height + 40
     ) {
-      console.log("collision happened");
+
+      // console.log("collision happened");
+      // console.log(rocket.pos[0]);
+      // console.log(this.pos[0]);
+      // console.log(this.pos[0]+this.width);
+      rocket.lastPos.push(rocket.pos)
+      rocket.lastVel.push(this.vel);
       return true;
     } else {
       return false;
