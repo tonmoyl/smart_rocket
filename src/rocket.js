@@ -13,6 +13,13 @@ export default class Rocket {
     this.color = this.getRandomColor();
     this.lastPos = [];
     this.lastVel = [];
+    this.distanceToTarget = 0;
+    this.findTargetDistance = this.findTargetDistance.bind(this);
+  }
+
+  findTargetDistance(target) {
+    this.distanceToTarget = Math.sqrt((target.pos[0]-this.pos[0])**2 + (target.pos[1]-this.pos[1])**2)
+    return this.distanceToTarget;
   }
 
   launch() {
