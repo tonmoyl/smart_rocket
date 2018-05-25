@@ -16,18 +16,23 @@ export default class Game {
     this.totalBarriers = 1;
     this.path = [];
     this.totalCollision = {};
-    this.createRockets = this.createRockets.bind(this);
     this.target = new Target(ctx);
-    this.additionalRockets = 3;
+    this.additionalRockets = 2;
+    this.createRockets = this.createRockets.bind(this);
+    this.resetParams = this.resetParams.bind(this);
   }
 
-  createRockets(ctx, startingPos) {
+  createRockets(ctx, startingPos, startingVel) {
     if (startingPos) {
       for (var i = this.totalRockets; i < this.totalRockets + this.additionalRockets; i++) {
         let rocket = new Rocket(ctx);
-        console.log(this.rockets);
-        rocket.pos = [startingPos[0]-20,startingPos[1]+20];
+        console.log(this.totalRockets);
+        rocket.pos = startingPos.slice();
+        rocket.vel = rocket.generateRandomVelocityAll(6);
+        if (startingVel[0]) { rocket.vel[0] = startingVel[0]}
+        if (startingVel[1]) { rocket.vel[1] = startingVel[1]}
         this.rockets[i] = rocket;
+
       }
       this.totalRockets = this.totalRockets + this.additionalRockets;
 
@@ -46,11 +51,19 @@ export default class Game {
   drawRockets() {
     let rocketKeys = Object.keys(this.rockets);
     for (var i = 0; i < rocketKeys.length; i++) {
+
+
       let rocketPos;
       let currentKey = rocketKeys[i];
       rocketPos = this.rockets[currentKey].pos;
-
+      // console.log(this.rockets[currentKey]);
       let collided = this.barrier.collisionDetection(this.rockets[currentKey]);
+      let targetHit = this.target.collisionDetection(this.rockets[currentKey]);
+
+      if (targetHit) {
+        console.log(targetHit)
+        return targetHit;
+      }
       if (
         // This stops the rockets from extending it outside of the canvas
         (rocketPos[0] > 0 &&
@@ -61,27 +74,33 @@ export default class Game {
       ) {
         this.rockets[currentKey].launch();
       } else {
-        const newVelocity = this.rockets[currentKey].vel;
+        let newVelocity = this.rockets[currentKey].vel;
+        let newPosition = this.rockets[currentKey].pos;
+        this.rockets[currentKey].pos = [newPosition[0] - newVelocity[0], newPosition[1] + newVelocity[1]];
+        newPosition = this.rockets[currentKey].pos;
         switch (collided) {
           case "left border":
           case "right border":
-            console.log('left')
-            this.rockets[currentKey].vel = [newVelocity[0]*-1,newVelocity[1]]
+            newVelocity = [newVelocity[0]*-1, null];
+            this.createRockets(this.ctx, newPosition, newVelocity);
+            // this.createRockets(this.ctx, newPosition);
+
+            // this.rockets[currentKey].pos = [newPosition[0] - newVelocity[0], newPosition[1] - newVelocity[1]]
             break;
           case "top border":
           case "bottom border":
-            console.log('left')
-            this.rockets[currentKey].vel = [newVelocity[0],newVelocity[1]*-1]
+            // this.rockets[currentKey].vel = [newVelocity[0],newVelocity[1]*-1]
+            newVelocity = [null, newVelocity[0]*-1];
+            this.createRockets(this.ctx, newPosition, newVelocity);
             break;
-          default:
-            this.totalCollision[currentKey] = this.rockets[currentKey];
-            this.rockets[currentKey].vel = [newVelocity[0]*-1,newVelocity[1]*-1]
-            // this.createRockets(this.ctx, this.rockets[currentKey].pos);
-            // delete this.rockets[currentKey];
+          case "collision":
+            console.log('collision')
+            // this.rockets[currentKey].vel = [newVelocity[0]*-1,newVelocity[1]*-1];
+            break;
         }
-        this.rockets[currentKey].launch();
-        debugger
-
+        this.rockets[currentKey].vel = [0,0];
+        // console.log(this.rockets);
+        //
       }
     }
   }
@@ -97,17 +116,31 @@ export default class Game {
   }
 
   draw() {
-    if (Object.keys(this.totalCollision).length >= 2500){
-      this.rockets = {};
-      this.rocketIds = [];
-      this.path = [];
-      this.totalCollision = {};
-
-      this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (this.target.hit){
+      // this.rockets = {};
+      // this.totalCollision = {};
+      //
+      // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      // this.target.hit = false;
+      // this.totalRockets = 2;
+      // this.createRockets(this.ctx);
+      this.resetParams();
     }
     this.drawRockets();
     this.drawTarget();
     this.drawBarrier();
+  }
+
+  resetParams() {
+    this.totalRockets = 2;
+    this.rockets = {};
+    this.totalCollision = {};
+    this.additionalRockets = 2;
+    this.target.hit = false;
+    this.totalRockets = 2;
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+    this.createRockets(this.ctx);
   }
 
 }

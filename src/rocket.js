@@ -48,4 +48,13 @@ export default class Rocket {
     if (dx % 2) {dx = dx * -1};
     return [(dx/1000) * factor, (dy/1000) * factor];
   }
+
+  generateRandomVelocityAll(factor) {
+    let dx = Math.floor(Math.random() * 1000);
+    let dy = Math.floor(Math.random() * 1000);
+    if (dx % 2) {dx = dx * -1};
+    if (dy % 2) {dy = dy * -1};
+    return [(dx/1000) * factor, (dy/1000) * factor];
+
+  }
 }

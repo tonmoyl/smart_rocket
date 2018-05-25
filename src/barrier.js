@@ -1,13 +1,13 @@
 
 export default class Barrier {
   constructor(ctx, target) {
-    this.width = 400;
+    this.width = 40;
     this.height = 10;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
     this.color = '#8D5406';
-    this.pos = [30,300];
+    this.pos = [250,300];
   };
 
   draw() {
@@ -21,7 +21,7 @@ export default class Barrier {
       return "left border";
     } else if (rocket.pos[0] > this.canvasWidth) {
       return "right border";
-    } else if (rocket.pos[1] < 0) {
+    } else if (rocket.pos[1] < 50) {
       return "top border";
     } else if (rocket.pos[1] > this.canvasHeight) {
       return "bottom border";
