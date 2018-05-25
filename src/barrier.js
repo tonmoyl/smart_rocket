@@ -1,7 +1,7 @@
 
 export default class Barrier {
   constructor(ctx, target) {
-    this.width = 40;
+    this.width = 400;
     this.height = 10;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
@@ -17,17 +17,34 @@ export default class Barrier {
   }
 
   collisionDetection(rocket) {
-    if (rocket.pos[0] - rocket.radius > this.pos[0] &&
+    if (rocket.pos[0] < 0) {
+      return "left border";
+    } else if (rocket.pos[0] > this.canvasWidth) {
+      return "right border";
+    } else if (rocket.pos[1] < 0) {
+      return "top border";
+    } else if (rocket.pos[1] > this.canvasHeight) {
+      return "bottom border";
+    } else if (rocket.pos[0] - rocket.radius > this.pos[0] &&
         rocket.pos[0] - rocket.radius < this.pos[0] + this.width &&
         rocket.pos[1] - rocket.radius > this.pos[1] &&
         rocket.pos[1] - rocket.radius < this.pos[1] + this.height + 40
     ) {
-
-      rocket.lastPos.push(rocket.pos)
-      rocket.lastVel.push(this.vel);
-      return true;
+      return "collision";
     } else {
       return false;
     }
+    // if (rocket.pos[0] - rocket.radius > this.pos[0] &&
+    //     rocket.pos[0] - rocket.radius < this.pos[0] + this.width &&
+    //     rocket.pos[1] - rocket.radius > this.pos[1] &&
+    //     rocket.pos[1] - rocket.radius < this.pos[1] + this.height + 40
+    // ) {
+    //
+    //   rocket.lastPos.push(rocket.pos)
+    //   rocket.lastVel.push(this.vel);
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   }
 }

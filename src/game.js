@@ -48,7 +48,6 @@ export default class Game {
     for (var i = 0; i < rocketKeys.length; i++) {
       let rocketPos;
       let currentKey = rocketKeys[i];
-      debugger
       rocketPos = this.rockets[currentKey].pos;
 
       let collided = this.barrier.collisionDetection(this.rockets[currentKey]);
@@ -62,9 +61,26 @@ export default class Game {
       ) {
         this.rockets[currentKey].launch();
       } else {
-        this.totalCollision[currentKey] = this.rockets[currentKey];
-        this.createRockets(this.ctx, this.rockets[currentKey].pos);
-        delete this.rockets[currentKey];
+        const newVelocity = this.rockets[currentKey].vel;
+        switch (collided) {
+          case "left border":
+          case "right border":
+            console.log('left')
+            this.rockets[currentKey].vel = [newVelocity[0]*-1,newVelocity[1]]
+            break;
+          case "top border":
+          case "bottom border":
+            console.log('left')
+            this.rockets[currentKey].vel = [newVelocity[0],newVelocity[1]*-1]
+            break;
+          default:
+            this.totalCollision[currentKey] = this.rockets[currentKey];
+            this.rockets[currentKey].vel = [newVelocity[0]*-1,newVelocity[1]*-1]
+            // this.createRockets(this.ctx, this.rockets[currentKey].pos);
+            // delete this.rockets[currentKey];
+        }
+        this.rockets[currentKey].launch();
+        debugger
 
       }
     }
