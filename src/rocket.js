@@ -25,7 +25,7 @@ export default class Rocket {
   launch() {
     // this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.ctx.beginPath();
-    this.ctx.arc(this.pos[0], this.pos[1]-50, this.radius, 0, Math.PI*2);
+    this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, Math.PI*2);
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
     this.ctx.closePath();

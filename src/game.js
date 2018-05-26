@@ -8,7 +8,6 @@ export default class Game {
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.totalRockets = 2;
-    console.log("Coming from the game");
     this.rockets = {};
     this.ctx = ctx;
     this.draw = this.draw.bind(this);
@@ -32,14 +31,14 @@ export default class Game {
         if (startingVel[0]) { rocket.vel[0] = startingVel[0]}
         if (startingVel[1]) { rocket.vel[1] = startingVel[1]}
         this.rockets[i] = rocket;
-
       }
       this.totalRockets = this.totalRockets + this.additionalRockets;
-
     } else {
       for (var i = 0; i < this.totalRockets; i++) {
         let rocket = new Rocket(ctx);
         this.rockets[i] = rocket;
+        this.path.push(rocket.vel);
+        console.log(this.path);
       }
     }
   }
@@ -55,10 +54,11 @@ export default class Game {
 
       let rocketPos;
       let currentKey = rocketKeys[i];
-      rocketPos = this.rockets[currentKey].pos;
+      let currentRocket = this.rockets[currentKey];
+      rocketPos = currentRocket.pos;
       // console.log(this.rockets[currentKey]);
-      let collided = this.barrier.collisionDetection(this.rockets[currentKey]);
-      let targetHit = this.target.collisionDetection(this.rockets[currentKey]);
+      let collided = this.barrier.collisionDetection(currentRocket);
+      let targetHit = this.target.collisionDetection(currentRocket);
 
       if (targetHit) {
         console.log(targetHit)
@@ -74,10 +74,10 @@ export default class Game {
       ) {
         this.rockets[currentKey].launch();
       } else {
-        let newVelocity = this.rockets[currentKey].vel;
-        let newPosition = this.rockets[currentKey].pos;
-        this.rockets[currentKey].pos = [newPosition[0] - newVelocity[0], newPosition[1] + newVelocity[1]];
-        newPosition = this.rockets[currentKey].pos;
+        let newVelocity = currentRocket.vel;
+        let newPosition = currentRocket.pos;
+        currentRocket.pos = [newPosition[0] - newVelocity[0], newPosition[1] + newVelocity[1]];
+        newPosition = currentRocket.pos;
         switch (collided) {
           case "left border":
           case "right border":
@@ -85,20 +85,40 @@ export default class Game {
             this.createRockets(this.ctx, newPosition, newVelocity);
             // this.createRockets(this.ctx, newPosition);
 
-            // this.rockets[currentKey].pos = [newPosition[0] - newVelocity[0], newPosition[1] - newVelocity[1]]
+            // currentRocket.pos = [newPosition[0] - newVelocity[0], newPosition[1] - newVelocity[1]]
             break;
           case "top border":
           case "bottom border":
-            // this.rockets[currentKey].vel = [newVelocity[0],newVelocity[1]*-1]
-            newVelocity = [null, newVelocity[0]*-1];
+            // currentRocket.vel = [newVelocity[0],newVelocity[1]*-1]
+            newVelocity = [null, newVelocity[1]*-1];
             this.createRockets(this.ctx, newPosition, newVelocity);
             break;
-          case "collision":
+          default:
             console.log('collision')
-            // this.rockets[currentKey].vel = [newVelocity[0]*-1,newVelocity[1]*-1];
+            console.log(currentRocket.pos);
+            console.log(currentRocket.vel);
+            console.log(collided);
+
+            // currentRocket.vel = [newVelocity[0]*-1,newVelocity[1]*-1];
+            // newVelocity = [newVelocity[0]*-1, newVelocity[1]*-1];
+            // this.createRockets(this.ctx, newPosition, newVelocity);
+            debugger
+            let posX = currentRocket.pos[0];
+            let posY = currentRocket.pos[1];
+            let diameter = currentRocket.radius * 2;
+            if (
+              posX > collided.leftBarrier &&
+              posX < collided.rightBarrier &&
+              (posY < collided.bottomBarrier + diameter || posY > collided.topBarrier-diameter)
+            ) {
+              newVelocity = [null, newVelocity[1]*-1];
+              this.createRockets(this.ctx, newPosition, newVelocity);
+            }
+
+
             break;
         }
-        this.rockets[currentKey].vel = [0,0];
+        currentRocket.vel = [0,0];
         // console.log(this.rockets);
         //
       }
@@ -117,17 +137,10 @@ export default class Game {
 
   draw() {
     if (this.target.hit){
-      // this.rockets = {};
-      // this.totalCollision = {};
-      //
-      // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      // this.target.hit = false;
-      // this.totalRockets = 2;
-      // this.createRockets(this.ctx);
       this.resetParams();
     }
     this.drawRockets();
-    this.drawTarget();
+    // this.drawTarget();
     this.drawBarrier();
   }
 
@@ -139,7 +152,6 @@ export default class Game {
     this.target.hit = false;
     this.totalRockets = 2;
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-
     this.createRockets(this.ctx);
   }
 
