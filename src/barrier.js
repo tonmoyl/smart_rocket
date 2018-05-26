@@ -1,13 +1,13 @@
 
 export default class Barrier {
-  constructor(ctx, target) {
-    this.width = 300;
-    this.height = 10;
+  constructor(ctx, pos) {
+    this.width = 50;
+    this.height = 50;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
     this.color = '#8D5406';
-    let [posX, posY] = [0,500]
+    let [posX, posY] = pos;
     this.pos = [posX, posY];
     this.area = {
       leftBarrier: posX,

@@ -25,7 +25,6 @@ export default class Game {
     if (startingPos) {
       for (var i = this.totalRockets; i < this.totalRockets + this.additionalRockets; i++) {
         let rocket = new Rocket(ctx);
-        console.log(this.totalRockets);
         rocket.pos = startingPos.slice();
         rocket.vel = rocket.generateRandomVelocityAll(6);
         if (startingVel[0]) { rocket.vel[0] = startingVel[0]}
@@ -37,14 +36,12 @@ export default class Game {
       for (var i = 0; i < this.totalRockets; i++) {
         let rocket = new Rocket(ctx);
         this.rockets[i] = rocket;
-        this.path.push(rocket.vel);
-        console.log(this.path);
       }
     }
   }
 
   createBarrier(ctx) {
-    this.barrier = new Barrier(ctx);
+    this.barrier = new Barrier(ctx, [50,250]);
   }
 
   drawRockets() {
@@ -102,7 +99,6 @@ export default class Game {
             // currentRocket.vel = [newVelocity[0]*-1,newVelocity[1]*-1];
             // newVelocity = [newVelocity[0]*-1, newVelocity[1]*-1];
             // this.createRockets(this.ctx, newPosition, newVelocity);
-            debugger
             let posX = currentRocket.pos[0];
             let posY = currentRocket.pos[1];
             let diameter = currentRocket.radius * 2;
@@ -112,6 +108,9 @@ export default class Game {
               (posY < collided.bottomBarrier + diameter || posY > collided.topBarrier-diameter)
             ) {
               newVelocity = [null, newVelocity[1]*-1];
+              this.createRockets(this.ctx, newPosition, newVelocity);
+            } else {
+              newVelocity = [newVelocity[0]*-1, null];
               this.createRockets(this.ctx, newPosition, newVelocity);
             }
 
@@ -137,10 +136,11 @@ export default class Game {
 
   draw() {
     if (this.target.hit){
+      console.log(this.target.hit)
       this.resetParams();
     }
     this.drawRockets();
-    // this.drawTarget();
+    this.drawTarget();
     this.drawBarrier();
   }
 
