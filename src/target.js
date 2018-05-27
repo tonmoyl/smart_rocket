@@ -7,12 +7,24 @@ export default class Target {
     this.canvasWidth = document.getElementById('canvas').width;
     this.pos = [this.canvasWidth/2, 75]
     this.hit = false;
+    // this.moon = new Image();
+    // this.moonSrc = "../images/moon_sprite/moon-0000001.png";
+    // debugger
+    // this.moonagain = this.sprite({
+    //   context: this.ctx,
+    //   width: 100,
+    //   height: 100,
+    //   image: this.moonSrc
+    // });
   }
 
   draw() {
     this.ctx.beginPath();
     this.ctx.arc(this.pos[0],this.pos[1],this.radius,0,2*Math.PI);
+    this.ctx.fillStyle = '#ECECEC';
+    this.ctx.fill();
     this.ctx.stroke();
+    // this.moonagain.render();
   }
 
   collisionDetection(rocket) {
@@ -26,4 +38,32 @@ export default class Target {
       return true;
     }
   }
+
+  // sprite(options) {
+  //   var that = {};
+  //
+  //   that.context = options.context;
+  //   that.width = options.width;
+  //   that.height = options.height;
+  //   that.image = options.image;
+  //
+  //   that.render = function () {
+  //
+  //       // Draw the animation
+  //       that.context.drawImage(
+  //          that.image,
+  //          0,
+  //          0,
+  //          that.width,
+  //          that.height,
+  //          0,
+  //          0,
+  //          that.width,
+  //          that.height);
+  //   };
+  //
+  //   return that;
+  // }
+
+
 }
