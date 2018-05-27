@@ -4,12 +4,12 @@ export default class Rocket {
   constructor(ctx) {
     this.height = 30;
     this.width = 10;
-    this.radius = 10;
+    this.radius = 7;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.pos = [this.canvasWidth/2, this.canvasHeight];
     this.ctx = ctx;
-    this.vel = this.generateRandomVelocity(10);
+    this.vel = this.generateRandomVelocity(4);
     this.color = this.getRandomColor();
     this.lastPos = [];
     this.lastVel = [];

@@ -1,6 +1,8 @@
 import Rocket from './rocket';
 import Barrier from './barrier';
 import Target from './target';
+import drawTime from './time';
+
 
 export default class Game {
   constructor(ctx) {
@@ -16,9 +18,12 @@ export default class Game {
     this.path = [];
     this.totalCollision = {};
     this.target = new Target(ctx);
-    this.additionalRockets = 2;
+    this.additionalRockets = 4;
     this.createRockets = this.createRockets.bind(this);
     this.resetParams = this.resetParams.bind(this);
+    this.time = 0;
+    this.interval = 100;
+    this.drawTime = drawTime.bind(this);
   }
 
   createRockets(ctx, startingPos, startingVel) {
@@ -135,6 +140,8 @@ export default class Game {
   }
 
   draw() {
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
     if (this.target.hit){
       console.log(this.target.hit)
       this.resetParams();
@@ -142,6 +149,8 @@ export default class Game {
     this.drawRockets();
     this.drawTarget();
     this.drawBarrier();
+    this.time = this.drawTime(this.time, this.interval);
+
   }
 
   resetParams() {
