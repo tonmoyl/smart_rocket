@@ -16,10 +16,10 @@ export default class Target {
   }
 
   collisionDetection(rocket) {
-    if (rocket.pos[0] - rocket.radius > this.pos[0] &&
-        rocket.pos[0] - rocket.radius < this.pos[0] + this.radius &&
-        rocket.pos[1] - rocket.radius > this.pos[1] &&
-        rocket.pos[1] - rocket.radius < this.pos[1] + this.radius + 40
+    if (rocket.pos[0] > this.pos[0] - this.radius &&
+        rocket.pos[0] < this.pos[0] + this.radius &&
+        rocket.pos[1] > this.pos[1] - this.radius &&
+        rocket.pos[1] < this.pos[1] + this.radius
     ) {
       this.hit = true;
       console.log("collision with target");

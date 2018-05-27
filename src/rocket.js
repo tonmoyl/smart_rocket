@@ -9,7 +9,7 @@ export default class Rocket {
     this.canvasWidth = document.getElementById('canvas').width;
     this.pos = [this.canvasWidth/2, this.canvasHeight];
     this.ctx = ctx;
-    this.vel = this.generateRandomVelocity(4);
+    this.vel = generateRandomVelocity(1);
     this.color = this.getRandomColor();
     this.lastPos = [];
     this.lastVel = [];
@@ -42,19 +42,22 @@ export default class Rocket {
     return color;
   }
 
-  generateRandomVelocity(factor) {
-    let dx = Math.floor(Math.random() * 1000);
-    let dy = Math.sqrt(1000000-(dx**2));
-    if (dx % 2) {dx = dx * -1};
-    return [(dx/1000) * factor, (dy/1000) * factor];
-  }
+}
 
-  generateRandomVelocityAll(factor) {
-    let dx = Math.floor(Math.random() * 1000);
-    let dy = Math.floor(Math.random() * 1000);
-    if (dx % 2) {dx = dx * -1};
-    if (dy % 2) {dy = dy * -1};
-    return [(dx/1000) * factor, (dy/1000) * factor];
+export const generateRandomVelocity = function(factor) {
+  let dx = Math.random() * factor;
+  let dy = Math.sqrt(factor**2-(dx**2));
+  return [dx,dy];
+}
 
-  }
+export const generateRandomVelocityAll = function(factor) {
+  let dx = Math.random();
+  let dy = Math.sqrt(1-(dx**2));
+  dx = Math.floor(dx*1000); dy = Math.floor(dy*1000);
+  if (dx%2 === 0) { dx *= -1};
+  if (dy%2 === 0) { dy *= -1};
+
+
+  const vel = [(dx/1000) * factor, (dy/1000) * factor];
+  return vel;
 }
