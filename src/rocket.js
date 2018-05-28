@@ -9,7 +9,7 @@ export default class Rocket {
     this.canvasWidth = document.getElementById('canvas').width;
     this.pos = [this.canvasWidth/2, this.canvasHeight];
     this.ctx = ctx;
-    this.vel = generateRandomVelocity(1);
+    this.vel = generateRandomVelocity(5);
     this.color = this.getRandomColor();
     this.lastPos = [];
     this.lastVel = [];

@@ -1,8 +1,8 @@
 
 export default class Barrier {
   constructor(ctx, pos) {
-    this.width = 50;
-    this.height = 50;
+    this.width = 100;
+    this.height = 100;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
@@ -34,10 +34,10 @@ export default class Barrier {
       return "top border";
     } else if (rocket.pos[1] > this.canvasHeight) {
       return "bottom border";
-    } else if (rocket.pos[0] + rocket.radius > this.pos[0] &&
-        rocket.pos[0] - rocket.radius < this.pos[0] + this.width &&
-        rocket.pos[1] + rocket.radius > this.pos[1] &&
-        rocket.pos[1] - rocket.radius < this.pos[1] + this.height
+    } else if (rocket.pos[0] + (rocket.radius) > this.area.leftBarrier &&
+        rocket.pos[0] - (rocket.radius) < this.area.rightBarrier &&
+        rocket.pos[1] - (rocket.radius) < this.area.bottomBarrier &&
+        rocket.pos[1] + (rocket.radius) > this.area.topBarrier
     ) {
       return this.area;
     } else {

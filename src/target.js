@@ -9,7 +9,7 @@ export default class Target {
     this.hit = false;
     // this.moon = new Image();
     // this.moonSrc = "../images/moon_sprite/moon-0000001.png";
-    // debugger
+    //
     // this.moonagain = this.sprite({
     //   context: this.ctx,
     //   width: 100,
