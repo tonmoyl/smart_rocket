@@ -12,5 +12,4 @@ document.addEventListener('DOMContentLoaded', () => {
   game.createBarrier(ctx);
 
   setInterval(game.draw, interval);
-
 })

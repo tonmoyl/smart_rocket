@@ -12,7 +12,7 @@ export default class Game {
     this.ctx = ctx;
     this.rocketLauncher = { height: 40, width: 40};
     this.rockets = {};
-    this.totalRockets = 2;
+    this.totalRockets = 0;
     this.additionalRockets = 2;
     this.barriers = {};
     this.totalBarriers = 6;
@@ -164,7 +164,6 @@ export default class Game {
     this.totalRockets = 2;
     this.rockets = {};
     this.totalCollision = {};
-    this.additionalRockets = 2;
     this.target.hit = false;
     this.totalRockets = 2;
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
