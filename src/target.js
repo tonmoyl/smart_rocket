@@ -7,6 +7,7 @@ export default class Target {
     this.canvasWidth = document.getElementById('canvas').width;
     this.pos = [this.canvasWidth/2, 75]
     this.hit = false;
+    this.crashRocket = null;
 
 
     // this.moon = new Image();
@@ -42,6 +43,7 @@ export default class Target {
         rocket.pos[1] < this.pos[1] + this.radius
     ) {
       this.hit = true;
+      this.crashRocket = rocket;
       // const canvas = document.getElementById('canvas');
       // const explosion = document.getElementById('explosion');
       explosion.style.top = `${canvas.offsetTop + 75 - 100}px`;

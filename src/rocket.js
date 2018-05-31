@@ -15,6 +15,7 @@ export default class Rocket {
     this.findTargetDistance = this.findTargetDistance.bind(this);
     this.height = 30;
     this.width = 10;
+    this.path = [];
   }
 
   addParent(parent) {
@@ -23,9 +24,17 @@ export default class Rocket {
     if (this.parent) {
       this.parent.children.push(this);
     }
-
     // this.parent.children.push(this);
+  }
 
+  lineage() {
+    let currentRocket = this;
+    while (currentRocket.parent) {
+      this.path.push(currentRocket);
+      currentRocket = currentRocket.parent;
+    }
+    return this.path;
+    // console.log(currentRocket);
   }
 
   findTargetDistance(target) {

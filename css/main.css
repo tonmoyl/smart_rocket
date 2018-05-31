@@ -123,3 +123,15 @@ p {
   /* height: 100px;
   width: auto; */
 }
+
+.buttons {
+  display: block;
+  color: white;
+}
+
+#buttonStart, #buttonEnd {
+  cursor: pointer;
+  padding: 20px;
+  margin: 20px;
+  background-color: #6d201e;
+}

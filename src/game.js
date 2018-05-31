@@ -3,6 +3,7 @@ import { generateRandomVelocity, generateRandomVelocityAll } from './rocket';
 import Barrier from './barrier';
 import Target from './target';
 import { drawTime, appendTime } from './time';
+import CrashRocket from './crash_rocket';
 
 
 export default class Game {
@@ -10,7 +11,6 @@ export default class Game {
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
-    this.rocketLauncher = { height: 40, width: 40};
     this.rockets = {};
     this.totalRockets = 2;
     this.additionalRockets = 2;
@@ -23,7 +23,6 @@ export default class Game {
     this.createRockets = this.createRockets.bind(this);
     this.resetParams = this.resetParams.bind(this);
     this.drawBarriers = this.drawBarriers.bind(this);
-    this.path = {};
   }
 
   createRockets(ctx, startingPos, startingVel, parentRocket) {
@@ -33,7 +32,6 @@ export default class Game {
         rocket.addParent(parentRocket);
         rocket.pos = startingPos.slice();
         rocket.vel = generateRandomVelocityAll(5);
-
         if (startingVel[0]) {
           if (startingVel[0] < 0) {
             rocket.vel[0] = -1*Math.abs(rocket.vel[0]);
@@ -47,22 +45,28 @@ export default class Game {
           } else {
             rocket.vel[1] = Math.abs(rocket.vel[1]);
           }
-          // rocket.vel[1] = startingVel[1]
-          // rocket.vel[1] *= -1;
         }
-        // if (!startingVel[0]) { rocket.vel[1] *= -1}
-        // if (!startingVel[1]) { rocket.vel[0] *= -1}
         this.rockets[i] = rocket;
       }
       this.totalRockets = this.totalRockets + this.additionalRockets;
     } else {
       for (var i = 0; i < this.totalRockets; i++) {
         let rocket = new Rocket(ctx);
-
+        console.log(rocket.vel);
         if (i % 2 === 0) { rocket.vel[0] *= -1}
         this.rockets[i] = rocket;
       }
     }
+    // if (this.crashRocket){
+    //   let lineage = this.crashRocket.lineage();
+    //   let rocket = new Rocket(this.ctx);
+    //   rocket.vel = lineage[0].vel;
+    //   console.log(rocket.vel);
+    //   rocket.vel[1] *= -1;
+    //   this.rockets[this.totalRockets] = rocket;
+    //   this.totalRockets += 1;
+    //   this.crashRocket = false;
+    // }
   }
 
   drawRockets() {
@@ -143,11 +147,11 @@ export default class Game {
     this.barrier6 = new Barrier(ctx, [200,150]);
     this.barriers = {
       0: this.barrier,
-      1: this.barrier2,
-      2: this.barrier3,
-      3: this.barrier4,
-      4: this.barrier5,
-      5: this.barrier6
+      // 1: this.barrier2,
+      // 2: this.barrier3,
+      // 3: this.barrier4,
+      // 4: this.barrier5,
+      // 5: this.barrier6
     };
   }
 
@@ -160,12 +164,19 @@ export default class Game {
     }
   }
 
+  drawCrashRocket() {
+    if (this.crashRocket) {
+
+    }
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     if (this.target.hit){
       appendTime(this.time);
+      this.crashRocket = this.target.crashRocket;
       this.resetParams();
-    } else if (this.totalRockets > 500) {
+    } else if (this.totalRockets > 1000) {
       this.resetParams();
     }
     this.drawRockets();
