@@ -1,7 +1,5 @@
 import Game from './game';
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
   var buttonStart = document.getElementById('buttonStart');
   var buttonEnd = document.getElementById('buttonEnd');
@@ -11,16 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
   let game = new Game(ctx, interval);
   game.createRockets(ctx);
   game.createBarrier(ctx);
+  var gameStart = true;
 
   var runSimulation = setInterval(game.draw, interval);
   let startSimulation = () => {
-    game = new Game(ctx, interval);
-    game.createRockets(ctx);
-    game.createBarrier(ctx);
-    runSimulation = setInterval(game.draw, interval);
+    if (!gameStart) {
+      game = new Game(ctx, interval);
+      game.createRockets(ctx);
+      game.createBarrier(ctx);
+      runSimulation = setInterval(game.draw, interval);
+      gameStart = true;
+    }
   }
   let endSimulation = () => {
     clearInterval(runSimulation);
+    gameStart = false;
   }
 
   // startSimulation(game, ctx, interval);

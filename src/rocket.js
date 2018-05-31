@@ -57,7 +57,6 @@ export const generateRandomVelocityAll = function(factor) {
   if (dx%2 === 0) { dx *= -1};
   if (dy%2 === 0) { dy *= -1};
 
-
   const vel = [(dx/1000) * factor, (dy/1000) * factor];
   return vel;
 }

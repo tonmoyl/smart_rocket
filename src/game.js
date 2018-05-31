@@ -12,7 +12,7 @@ export default class Game {
     this.ctx = ctx;
     this.rocketLauncher = { height: 40, width: 40};
     this.rockets = {};
-    this.totalRockets = 0;
+    this.totalRockets = 2;
     this.additionalRockets = 2;
     this.barriers = {};
     this.totalBarriers = 6;
@@ -32,8 +32,22 @@ export default class Game {
         rocket.pos = startingPos.slice();
         rocket.vel = generateRandomVelocityAll(5);
 
-        if (startingVel[0]) { rocket.vel[0] = startingVel[0]}
-        if (startingVel[1]) { rocket.vel[1] = startingVel[1]}
+        if (startingVel[0]) {
+          if (startingVel[0] < 0) {
+            rocket.vel[0] = -1*Math.abs(rocket.vel[0]);
+          } else {
+            rocket.vel[0] = Math.abs(rocket.vel[0]);
+          }
+        }
+        if (startingVel[1]) {
+          if (startingVel[1] < 0) {
+            rocket.vel[1] = -1*Math.abs(rocket.vel[1]);
+          } else {
+            rocket.vel[1] = Math.abs(rocket.vel[1]);
+          }
+          // rocket.vel[1] = startingVel[1]
+          // rocket.vel[1] *= -1;
+        }
         // if (!startingVel[0]) { rocket.vel[1] *= -1}
         // if (!startingVel[1]) { rocket.vel[0] *= -1}
         this.rockets[i] = rocket;
