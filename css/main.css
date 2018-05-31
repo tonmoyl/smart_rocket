@@ -116,3 +116,10 @@ p {
 .github {
   background-image: url('../images/links/gh-white.png');
 }
+
+#explosion {
+  visibility: hidden;
+  position: absolute;
+  /* height: 100px;
+  width: auto; */
+}

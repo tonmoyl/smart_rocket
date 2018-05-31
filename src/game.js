@@ -23,12 +23,14 @@ export default class Game {
     this.createRockets = this.createRockets.bind(this);
     this.resetParams = this.resetParams.bind(this);
     this.drawBarriers = this.drawBarriers.bind(this);
+    this.path = {};
   }
 
-  createRockets(ctx, startingPos, startingVel) {
+  createRockets(ctx, startingPos, startingVel, parentRocket) {
     if (startingPos) {
       for (let i = this.totalRockets; i < this.totalRockets + this.additionalRockets; i++) {
         let rocket = new Rocket(ctx);
+        rocket.addParent(parentRocket);
         rocket.pos = startingPos.slice();
         rocket.vel = generateRandomVelocityAll(5);
 
@@ -51,7 +53,6 @@ export default class Game {
         // if (!startingVel[0]) { rocket.vel[1] *= -1}
         // if (!startingVel[1]) { rocket.vel[0] *= -1}
         this.rockets[i] = rocket;
-
       }
       this.totalRockets = this.totalRockets + this.additionalRockets;
     } else {
@@ -126,7 +127,7 @@ export default class Game {
               break;
           }
 
-          this.createRockets(this.ctx, rocketPos, rocketVel);
+          this.createRockets(this.ctx, rocketPos, rocketVel, currentRocket);
           currentRocket.vel = [0,0];
         }
       }

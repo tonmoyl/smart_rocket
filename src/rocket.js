@@ -2,8 +2,8 @@
 
 export default class Rocket {
   constructor(ctx) {
-    this.height = 30;
-    this.width = 10;
+    this.parent = null;
+    this.children = [];
     this.radius = 7;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
@@ -11,10 +11,21 @@ export default class Rocket {
     this.ctx = ctx;
     this.vel = generateRandomVelocity(5);
     this.color = this.getRandomColor();
-    this.lastPos = [];
-    this.lastVel = [];
     this.distanceToTarget = 0;
     this.findTargetDistance = this.findTargetDistance.bind(this);
+    this.height = 30;
+    this.width = 10;
+  }
+
+  addParent(parent) {
+    if (this.parent === parent) { return }
+    this.parent = parent;
+    if (this.parent) {
+      this.parent.children.push(this);
+    }
+
+    // this.parent.children.push(this);
+
   }
 
   findTargetDistance(target) {
