@@ -52,6 +52,7 @@ p {
   position: fixed;
   width: 100%;
   height: 100%;
+  z-index: -1;
 }
 
 #canvas, .time-logger-container {
@@ -91,6 +92,7 @@ p {
 }
 
 .links-list {
+  padding-top: 40px;
   margin: auto;
   width: 400px;
   display: flex;
