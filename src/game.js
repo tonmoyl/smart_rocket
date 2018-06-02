@@ -52,21 +52,21 @@ export default class Game {
     } else {
       for (var i = 0; i < this.totalRockets; i++) {
         let rocket = new Rocket(ctx);
-        console.log(rocket.vel);
+        console.log(rocket);
         if (i % 2 === 0) { rocket.vel[0] *= -1}
         this.rockets[i] = rocket;
       }
     }
-    // if (this.crashRocket){
-    //   let lineage = this.crashRocket.lineage();
-    //   let rocket = new Rocket(this.ctx);
-    //   rocket.vel = lineage[0].vel;
-    //   console.log(rocket.vel);
-    //   rocket.vel[1] *= -1;
-    //   this.rockets[this.totalRockets] = rocket;
-    //   this.totalRockets += 1;
-    //   this.crashRocket = false;
-    // }
+    if (this.crashRocket){
+      let lineage = this.crashRocket.lineage();
+      console.log(lineage);
+      let rocket = new Rocket(this.ctx);
+      rocket.vel = lineage[0].vel;
+      rocket.vel[1] *= -1;
+      this.rockets[this.totalRockets] = rocket;
+      this.totalRockets += 1;
+      this.crashRocket = false;
+    }
   }
 
   drawRockets() {
@@ -98,6 +98,7 @@ export default class Game {
         ) {
 
         } else {
+          delete this.rockets[rocketKeys[i]];
           currentRocket.pos = [rocketPos[0] - rocketVel[0], rocketPos[1] + rocketVel[1]];
           rocketPos = currentRocket.pos;
           switch (collided) {
@@ -130,9 +131,7 @@ export default class Game {
               }
               break;
           }
-
           this.createRockets(this.ctx, rocketPos, rocketVel, currentRocket);
-          currentRocket.vel = [0,0];
         }
       }
     }
