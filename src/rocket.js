@@ -33,7 +33,7 @@ export default class Rocket {
       this.path.push(currentRocket);
       currentRocket = currentRocket.parent;
     }
-    this.path.push(currentRocket);
+    this.path.unshift(currentRocket);
     return this.path;
     // console.log(currentRocket);
   }

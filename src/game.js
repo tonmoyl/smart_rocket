@@ -23,6 +23,8 @@ export default class Game {
     this.createRockets = this.createRockets.bind(this);
     this.resetParams = this.resetParams.bind(this);
     this.drawBarriers = this.drawBarriers.bind(this);
+    this.crashRocketTurn = false;
+    this.ancestorPath = false
   }
 
   createRockets(ctx, startingPos, startingVel, parentRocket) {
@@ -58,15 +60,25 @@ export default class Game {
       }
     }
     if (this.crashRocket){
-      let lineage = this.crashRocket.lineage();
-      console.log(lineage);
+      this.ancestorPath = this.crashRocket.lineage();
       let rocket = new Rocket(this.ctx);
-      rocket.vel = lineage[0].vel;
-      rocket.vel[1] *= -1;
+      rocket.vel = this.ancestorPath[0].vel;
       this.rockets[this.totalRockets] = rocket;
       this.totalRockets += 1;
+      rocket.ancestors = this.ancestorPath;
+      this.crashRocketTurn = 0;
       this.crashRocket = false;
     }
+  }
+
+  createCrashRocket(currentRocket) {
+    this.crashRocketTurn += 1;
+    this.rockets[this.totalRockets] = this.ancestorPath[this.crashRocketTurn];
+    this.rockets[this.totalRockets].pos = currentRocket.pos;
+    this.rockets[this.totalRockets].ancestors = true;
+
+    this.totalRockets += 1;
+
   }
 
   drawRockets() {
@@ -101,14 +113,19 @@ export default class Game {
           delete this.rockets[rocketKeys[i]];
           currentRocket.pos = [rocketPos[0] - rocketVel[0], rocketPos[1] + rocketVel[1]];
           rocketPos = currentRocket.pos;
+          let newRocketVel;
+          if (currentRocket.ancestors) {
+            console.log(currentRocket);
+            this.createCrashRocket(currentRocket);
+          } else {}
           switch (collided) {
             case "left border":
             case "right border":
-              rocketVel = [rocketVel[0]*-1, null];
+              newRocketVel = [rocketVel[0]*-1, null];
               break;
             case "top border":
             case "bottom border":
-              rocketVel = [null, rocketVel[1]*-1];
+              newRocketVel = [null, rocketVel[1]*-1];
               break;
             default:
               let diameter = currentRocket.radius * 2;
@@ -118,20 +135,20 @@ export default class Game {
                 (rocketPos[1] < collided.bottomBarrier + diameter ||
                   rocketPos[1] > collided.topBarrier-diameter)
               ) {
-                rocketVel = [null, rocketVel[1]*-1];
+                newRocketVel = [null, rocketVel[1]*-1];
               } else if (
                 rocketPos[1] > collided.topBarrier &&
                 rocketPos[1] < collided.bottomBarrier &&
                 (rocketPos[0] < collided.leftBarrier + diameter ||
                   rocketPos[0] > collided.rightBarrier-diameter)
               ) {
-                rocketVel = [rocketVel[0]*-1, null];
+                newRocketVel = [rocketVel[0]*-1, null];
               } else {
-                rocketVel = [rocketVel[0]*-1,rocketVel[1]*-1];
+                newRocketVel = [rocketVel[0]*-1,rocketVel[1]*-1];
               }
               break;
           }
-          this.createRockets(this.ctx, rocketPos, rocketVel, currentRocket);
+          this.createRockets(this.ctx, rocketPos, newRocketVel, currentRocket);
         }
       }
     }
@@ -139,17 +156,17 @@ export default class Game {
 
   createBarrier(ctx) {
     this.barrier = new Barrier(ctx, [this.canvasWidth/2,250]);
-    this.barrier2 = new Barrier(ctx, [0,250]);
+    this.barrier2 = new Barrier(ctx, [350,250]);
     this.barrier3 = new Barrier(ctx, [700,250]);
-    this.barrier4 = new Barrier(ctx, [700,100]);
-    this.barrier5 = new Barrier(ctx, [0,100]);
+    this.barrier4 = new Barrier(ctx, [450,250]);
+    this.barrier5 = new Barrier(ctx, [550,250]);
     this.barrier6 = new Barrier(ctx, [200,150]);
     this.barriers = {
       0: this.barrier,
-      // 1: this.barrier2,
+      1: this.barrier2,
       // 2: this.barrier3,
-      // 3: this.barrier4,
-      // 4: this.barrier5,
+      3: this.barrier4,
+      4: this.barrier5,
       // 5: this.barrier6
     };
   }
@@ -160,12 +177,6 @@ export default class Game {
       const currentBarrier = this.barriers[barrierId[i]];
 
       currentBarrier.draw(this.ctx);
-    }
-  }
-
-  drawCrashRocket() {
-    if (this.crashRocket) {
-
     }
   }
 
