@@ -73,6 +73,8 @@ export default class Game {
 
   createCrashRocket(currentRocket) {
     this.crashRocketTurn += 1;
+
+    // let originalRocket = this.ancestorPath[this.crashRocketTurn];
     this.rockets[this.totalRockets] = this.ancestorPath[this.crashRocketTurn];
     this.rockets[this.totalRockets].pos = currentRocket.pos;
     this.rockets[this.totalRockets].ancestors = true;
@@ -117,38 +119,39 @@ export default class Game {
           if (currentRocket.ancestors) {
             console.log(currentRocket);
             this.createCrashRocket(currentRocket);
-          } else {}
-          switch (collided) {
-            case "left border":
-            case "right border":
-              newRocketVel = [rocketVel[0]*-1, null];
-              break;
-            case "top border":
-            case "bottom border":
-              newRocketVel = [null, rocketVel[1]*-1];
-              break;
-            default:
-              let diameter = currentRocket.radius * 2;
-              if (
-                rocketPos[0] > collided.leftBarrier &&
-                rocketPos[0] < collided.rightBarrier &&
-                (rocketPos[1] < collided.bottomBarrier + diameter ||
-                  rocketPos[1] > collided.topBarrier-diameter)
-              ) {
-                newRocketVel = [null, rocketVel[1]*-1];
-              } else if (
-                rocketPos[1] > collided.topBarrier &&
-                rocketPos[1] < collided.bottomBarrier &&
-                (rocketPos[0] < collided.leftBarrier + diameter ||
-                  rocketPos[0] > collided.rightBarrier-diameter)
-              ) {
+          } else {
+            switch (collided) {
+              case "left border":
+              case "right border":
                 newRocketVel = [rocketVel[0]*-1, null];
-              } else {
-                newRocketVel = [rocketVel[0]*-1,rocketVel[1]*-1];
-              }
-              break;
+                break;
+              case "top border":
+              case "bottom border":
+                newRocketVel = [null, rocketVel[1]*-1];
+                break;
+              default:
+                let diameter = currentRocket.radius * 2;
+                if (
+                  rocketPos[0] > collided.leftBarrier &&
+                  rocketPos[0] < collided.rightBarrier &&
+                  (rocketPos[1] < collided.bottomBarrier + diameter ||
+                    rocketPos[1] > collided.topBarrier-diameter)
+                ) {
+                  newRocketVel = [null, rocketVel[1]*-1];
+                } else if (
+                  rocketPos[1] > collided.topBarrier &&
+                  rocketPos[1] < collided.bottomBarrier &&
+                  (rocketPos[0] < collided.leftBarrier + diameter ||
+                    rocketPos[0] > collided.rightBarrier-diameter)
+                ) {
+                  newRocketVel = [rocketVel[0]*-1, null];
+                } else {
+                  newRocketVel = [rocketVel[0]*-1,rocketVel[1]*-1];
+                }
+                break;
+            }
+            this.createRockets(this.ctx, rocketPos, newRocketVel, currentRocket);
           }
-          this.createRockets(this.ctx, rocketPos, newRocketVel, currentRocket);
         }
       }
     }
@@ -205,6 +208,7 @@ export default class Game {
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.createRockets(this.ctx);
     this.time = 0;
+    this.crashRocketTurn = false;
   }
 
 }

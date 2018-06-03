@@ -28,12 +28,14 @@ export default class Rocket {
   }
 
   lineage() {
+    debugger
     let currentRocket = this;
     while (currentRocket.parent) {
-      this.path.push(currentRocket);
+      this.path.unshift(currentRocket);
       currentRocket = currentRocket.parent;
     }
     this.path.unshift(currentRocket);
+    // this.path.unshift(currentRocket);
     return this.path;
     // console.log(currentRocket);
   }
