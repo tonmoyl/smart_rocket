@@ -28,7 +28,6 @@ export default class Rocket {
   }
 
   lineage() {
-    debugger
     let currentRocket = this;
     while (currentRocket.parent) {
       this.path.unshift(currentRocket);

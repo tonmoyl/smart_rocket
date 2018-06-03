@@ -12,7 +12,7 @@ export default class Game {
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
     this.rockets = {};
-    this.totalRockets = 2;
+    this.totalRockets = 4;
     this.additionalRockets = 2;
     this.barriers = {};
     this.totalBarriers = 6;
@@ -24,7 +24,8 @@ export default class Game {
     this.resetParams = this.resetParams.bind(this);
     this.drawBarriers = this.drawBarriers.bind(this);
     this.crashRocketTurn = false;
-    this.ancestorPath = false
+    this.ancestorPath = false;
+    this.deviation = 0.05;
   }
 
   createRockets(ctx, startingPos, startingVel, parentRocket) {
@@ -74,14 +75,34 @@ export default class Game {
   createCrashRocket(currentRocket) {
     this.crashRocketTurn += 1;
 
-    // let originalRocket = this.ancestorPath[this.crashRocketTurn];
-    this.rockets[this.totalRockets] = this.ancestorPath[this.crashRocketTurn];
+    let originalRocket = this.ancestorPath[this.crashRocketTurn];
+    this.rockets[this.totalRockets] = originalRocket;
     this.rockets[this.totalRockets].pos = currentRocket.pos;
     this.rockets[this.totalRockets].ancestors = true;
+    // this.rockets[this.totalRockets + 1].ancestors = true;
 
     this.totalRockets += 1;
-
   }
+
+  // createCrashRocket(currentRocket) {
+  //   this.crashRocketTurn += 1;
+  //
+  //   let originalRocket = this.ancestorPath[this.crashRocketTurn];
+  //
+  //   this.rockets[this.totalRockets] = originalRocket;
+  //   this.rockets[this.totalRockets].pos = currentRocket.pos;
+  //
+  //   let deviationRocket = originalRocket;
+  //   let deviationSpeed = originalRocket.vel.slice();
+  //   deviationRocket.vel[0] = deviationSpeed[0] + this.deviation;
+  //   deviationRocket.vel[1] = deviationSpeed[1] + this.deviation;
+  //   this.rockets[this.totalRockets + 1] = deviationRocket;
+  //
+  //   this.rockets[this.totalRockets].ancestors = true;
+  //   this.rockets[this.totalRockets + 1].ancestors = true;
+  //
+  //   this.totalRockets += 1;
+  // }
 
   drawRockets() {
     let rocketKeys = Object.keys(this.rockets);
