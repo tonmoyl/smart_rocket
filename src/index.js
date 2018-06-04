@@ -42,25 +42,3 @@ document.addEventListener('DOMContentLoaded', () => {
   buttonResume.addEventListener('click', resumeSimulation);
 
 });
-
-
-
-
-// let endSimulation = () => {
-//   console.log(runSimulation);
-//   clearInterval(runSimulation);
-// }
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-//
-//
-//   var canvas = document.getElementById("canvas");
-//   var ctx = canvas.getContext("2d");
-//   let interval = 20;
-//   let game = new Game(ctx, interval);
-//   game.createRockets(ctx);
-//   game.createBarrier(ctx);
-//
-//   setInterval(game.draw, interval);
-// })

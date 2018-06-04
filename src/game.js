@@ -22,6 +22,7 @@ export default class Game {
     this.createRockets = this.createRockets.bind(this);
     this.resetParams = this.resetParams.bind(this);
     this.drawBarriers = this.drawBarriers.bind(this);
+    this.bestTime = false;
   }
 
   createRockets(ctx, startingPos, startingVel, parentRocket) {
@@ -189,7 +190,10 @@ export default class Game {
   draw() {
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     if (this.target.hit){
-      appendTime(this.time);
+      if (!this.bestTime || this.time < this.bestTime) {
+        appendTime(this.time);
+        this.bestTime = this.time;
+      }
       this.crashRocket = this.target.crashRocket;
       this.resetParams();
     } else if (this.totalRockets > 1000) {

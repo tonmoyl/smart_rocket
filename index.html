@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <div id="root">
+        <div class="mid-col" id="root">
           <div class="current-time-container">
             <h2>Time
               <span class="current-time" id="current-time"></span>
@@ -43,16 +43,27 @@
 
           <canvas id="canvas" width="800" height="600"></canvas>
           <div class="buttons">
-            <div id="buttonStart">New Simulation</div>
-            <div id="buttonEnd">Stop Simulation</div>
-            <div id="buttonResume">Resume Simulation</div>
+            <div id="buttonStart">NEW</div>
+            <div id="buttonEnd">PAUSE</div>
+            <div id="buttonResume">RESUME</div>
           </div>
         </div>
-        <div class="time-logger-container">
-          <h2>Target Time</h2>
-          <ul id="time-logger">
-          </ul>
+
+        <div class="right-col">
+          <div id="best-time">
+            <h3>BEST TIME</h3>
+            <div id="best-value">
+              0:00
+            </div>
+          </div>
+          <br>
+          <div class="time-logger-container">
+            <h2>Collision Time</h2>
+            <ul id="time-logger">
+            </ul>
+          </div>
         </div>
+
       </div>
 
     </div>

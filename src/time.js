@@ -9,6 +9,8 @@ export const drawTime = (currentTime, interval) => {
 
 export const appendTime = (currentTime) => {
   let timelog = document.getElementById("time-logger");
+  let bestTime = document.getElementById("best-value");
+  bestTime.innerHTML = `${currentTime/1000} s`;
   let newLi = document.createElement('li');
   let displayTime = currentTime/1000;
   displayTime = displayTime.toFixed(2);
