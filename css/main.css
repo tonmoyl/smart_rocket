@@ -19,6 +19,7 @@ p {
 }
 
 .title {
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   font-family: 'Audiowide';
@@ -72,7 +73,7 @@ p {
 
 .current-time {
   font-size: 18px;
-  color: red;
+  color: #da4b47;
 }
 
 .main {
@@ -125,7 +126,8 @@ p {
 }
 
 .buttons {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   color: white;
 }
 
@@ -134,4 +136,20 @@ p {
   padding: 20px;
   margin: 20px;
   background-color: #6d201e;
+  text-align: center;
+  width: 150px;
+  /* border: outset; */
+}
+
+.description {
+  /* background-color: black; */
+  /* border: 2px solid #6d201e; */
+  width: 300px;
+  color: white;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.description h2 {
+  color: #da4b47;
 }

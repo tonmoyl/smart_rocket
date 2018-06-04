@@ -12,40 +12,60 @@
     <div class="app">
     </div>
     <div class="glow"><h1 class="title">Smart Rocket</h1></div>
-    <div class="current-time-container">
-      <h2>Time
-        <span class="current-time" id="current-time"></span>
-      </h2>
-    </div>
 
-    <div class="main">
-      <div class="buttons">
-        <div id="buttonStart">New Simulation</div>
-        <div id="buttonEnd">Stop Simulation</div>
-        <div id="buttonResume">Resume Simulation</div>
+    <!-- <div class="center-body"> -->
+
+      <div class="main">
+        <div class="left-col">
+
+          <div class="description">
+            <h2>Goals</h2>
+            Smart rocket is designed to determine the shortest distance from the starting position to the target.
+            <h2>Setup</h2>
+            The demonstration has three major components: target, barriers, and rockets:
+            <h2>Target</h2>
+            Located at the top of the model, the target explodes once a rocket has reached it.
+            <h2>Barriers</h2>
+            Position between the starting point of the rockets and the target, the barriers prevent the rockets from reaching the target.
+            <h2>Rockets</h2>
+            Rockets are shot from the opposite side of the target and has the goal of eventually reaching the target. They bounce from the barriers until a rocket has reached the target. Once the rocket reaches a target, a copy of that rocket trajectory is saved for the next test.
+
+          </div>
+        </div>
+
+        <div id="root">
+          <div class="current-time-container">
+            <h2>Time
+              <span class="current-time" id="current-time"></span>
+            </h2>
+
+          </div>
+
+          <canvas id="canvas" width="800" height="600"></canvas>
+          <div class="buttons">
+            <div id="buttonStart">New Simulation</div>
+            <div id="buttonEnd">Stop Simulation</div>
+            <div id="buttonResume">Resume Simulation</div>
+          </div>
+        </div>
+        <div class="time-logger-container">
+          <h2>Target Time</h2>
+          <ul id="time-logger">
+          </ul>
+        </div>
       </div>
 
-      <div id="root">
-        <canvas id="canvas" width="800" height="600"></canvas>
-      </div>
-      <div class="time-logger-container">
-        <h2>Target Time</h2>
-        <ul id="time-logger">
-        </ul>
-      </div>
     </div>
 
     <div class="links-list">
-      <a href="#">
+      <a href="https://www.linkedin.com/in/lifazultonmoy/">
         <div class="link linkedin">
         </div>
       </a>
-      <p>LINKEDIN</p>
-      <a href="#">
+      <a href="https://github.com/tonmoyl/smart_rocket">
         <div class="link github">
         </div>
       </a>
-      <p>GITHUB</p>
     </div>
 
     <img id='explosion' src="./images/explosion.gif" alt="">
