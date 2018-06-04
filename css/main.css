@@ -129,7 +129,7 @@ p {
   color: white;
 }
 
-#buttonStart, #buttonEnd {
+#buttonStart, #buttonEnd, #buttonResume {
   cursor: pointer;
   padding: 20px;
   margin: 20px;

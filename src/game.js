@@ -12,10 +12,9 @@ export default class Game {
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
     this.rockets = {};
-    this.totalRockets = 4;
+    this.totalRockets = 2;
     this.additionalRockets = 2;
     this.barriers = {};
-    this.totalBarriers = 6;
     this.target = new Target(ctx);
     this.time = 0;
     this.interval = interval;
@@ -23,9 +22,6 @@ export default class Game {
     this.createRockets = this.createRockets.bind(this);
     this.resetParams = this.resetParams.bind(this);
     this.drawBarriers = this.drawBarriers.bind(this);
-    this.crashRocketTurn = false;
-    this.ancestorPath = false;
-    this.deviation = 0.05;
   }
 
   createRockets(ctx, startingPos, startingVel, parentRocket) {
@@ -79,30 +75,9 @@ export default class Game {
     this.rockets[this.totalRockets] = originalRocket;
     this.rockets[this.totalRockets].pos = currentRocket.pos;
     this.rockets[this.totalRockets].ancestors = true;
-    // this.rockets[this.totalRockets + 1].ancestors = true;
 
     this.totalRockets += 1;
   }
-
-  // createCrashRocket(currentRocket) {
-  //   this.crashRocketTurn += 1;
-  //
-  //   let originalRocket = this.ancestorPath[this.crashRocketTurn];
-  //
-  //   this.rockets[this.totalRockets] = originalRocket;
-  //   this.rockets[this.totalRockets].pos = currentRocket.pos;
-  //
-  //   let deviationRocket = originalRocket;
-  //   let deviationSpeed = originalRocket.vel.slice();
-  //   deviationRocket.vel[0] = deviationSpeed[0] + this.deviation;
-  //   deviationRocket.vel[1] = deviationSpeed[1] + this.deviation;
-  //   this.rockets[this.totalRockets + 1] = deviationRocket;
-  //
-  //   this.rockets[this.totalRockets].ancestors = true;
-  //   this.rockets[this.totalRockets + 1].ancestors = true;
-  //
-  //   this.totalRockets += 1;
-  // }
 
   drawRockets() {
     let rocketKeys = Object.keys(this.rockets);
@@ -131,7 +106,6 @@ export default class Game {
           // this stops the rocket from extending past a barrier
           !collided
         ) {
-
         } else {
           delete this.rockets[rocketKeys[i]];
           currentRocket.pos = [rocketPos[0] - rocketVel[0], rocketPos[1] + rocketVel[1]];
@@ -185,13 +159,21 @@ export default class Game {
     this.barrier4 = new Barrier(ctx, [450,250]);
     this.barrier5 = new Barrier(ctx, [550,250]);
     this.barrier6 = new Barrier(ctx, [200,150]);
+    this.barrier7 = new Barrier(ctx, [0,200]);
+    this.barrier8 = new Barrier(ctx, [500,400]);
+    this.barrier9 = new Barrier(ctx, [600,200]);
+    this.barrier10 = new Barrier(ctx, [200,300]);
     this.barriers = {
-      0: this.barrier,
+      // 0: this.barrier,
       1: this.barrier2,
-      // 2: this.barrier3,
-      3: this.barrier4,
-      4: this.barrier5,
-      // 5: this.barrier6
+      2: this.barrier3,
+      // 3: this.barrier4,
+      // 4: this.barrier5,
+      5: this.barrier6,
+      6: this.barrier7,
+      7: this.barrier8,
+      8: this.barrier9,
+      9: this.barrier10
     };
   }
 
