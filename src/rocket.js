@@ -46,11 +46,22 @@ export default class Rocket {
 
   launch() {
     // this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.ctx.save();
     this.ctx.beginPath();
+    if (this.ancestors) {
+      this.ctx.shadowBlur=40;
+      this.ctx.shadowColor="white";
+    }
     this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, Math.PI*2);
     this.ctx.fillStyle = this.color;
+    // this.ctx.arc(this.pos[0], this.pos[1], this.radius * 2, 0, Math.PI*2);
+    if (this.ancestors) {
+      this.ctx.lineWidth = 5;
+      this.ctx.strokeStyle = "white";
+      this.ctx.stroke();
+    }
     this.ctx.fill();
-    this.ctx.closePath();
+    this.ctx.restore();
     this.pos[0] += this.vel[0];
     this.pos[1] -= this.vel[1];
   }

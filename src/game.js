@@ -51,7 +51,6 @@ export default class Game {
     } else {
       for (var i = 0; i < this.totalRockets; i++) {
         let rocket = new Rocket(ctx);
-        console.log(rocket);
         if (i % 2 === 0) { rocket.vel[0] *= -1}
         this.rockets[i] = rocket;
       }
@@ -61,6 +60,7 @@ export default class Game {
       let rocket = new Rocket(this.ctx);
       rocket.vel = this.ancestorPath[0].vel;
       this.rockets[this.totalRockets] = rocket;
+      rocket.color = '#6d201e'
       this.totalRockets += 1;
       rocket.ancestors = this.ancestorPath;
       this.crashRocketTurn = 0;
@@ -72,6 +72,7 @@ export default class Game {
     this.crashRocketTurn += 1;
 
     let originalRocket = this.ancestorPath[this.crashRocketTurn];
+    originalRocket.color = '#6d201e';
     this.rockets[this.totalRockets] = originalRocket;
     this.rockets[this.totalRockets].pos = currentRocket.pos;
     this.rockets[this.totalRockets].ancestors = true;
@@ -112,7 +113,6 @@ export default class Game {
           rocketPos = currentRocket.pos;
           let newRocketVel;
           if (currentRocket.ancestors) {
-            console.log(currentRocket);
             this.createCrashRocket(currentRocket);
           } else {
             switch (collided) {
@@ -199,7 +199,6 @@ export default class Game {
     this.target.draw();
     this.time = drawTime(this.time, this.interval);
     this.drawBarriers(this.ctx)
-
   }
 
   resetParams() {
