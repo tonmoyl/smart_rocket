@@ -31,3 +31,5 @@ The main focus for this project is the use of collision detection. The rockets n
 
 ### Smart Rocket Path
 The smart rocket is delineated as the red rocket with the white border. This shows the most efficient trajectory that the computer found so far to reach the target. This efficiency is calculated by the shorted time required in order to reach the target.
+
+![Setup](https://github.com/tonmoyl/smart_rocket/blob/master/images/readme/smartrocket.gif)
