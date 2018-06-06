@@ -6,8 +6,11 @@ View the [live demo](http://lifazul.com/smart_rocket/)!
 ## Goal
 Smart rocket is designed to determine the shortest distance from the starting position to the target.
 
+
 ## Setup
 The demonstration has three major components: target, barriers, and rockets:
+
+![Setup](https://github.com/tonmoyl/smart_rocket/blob/master/images/readme/barriers_target.png)
 
 ### Target
 Located at the top of the model, the target explodes once a rocket has reached it.
