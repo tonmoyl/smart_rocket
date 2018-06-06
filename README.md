@@ -1,5 +1,5 @@
 # Smart Rocket
-Smart Rocket is a Javascript demonstration portraying a simple version of computer machine learning. The computer determines the trajectory of reaching a target given a position. This project is handled in canvas.
+Smart Rocket is a Javascript demonstration portraying a simple version of computer machine learning, which is handled in canvas. Through multiple attempts, the computer is able to determine the shortest path to reach the target. Rockets send out multiple subrockets every time it collides with the barrier. This process is repeated until a rocket finally finds the target. The new rounds begins with the smart rocket that follows the path to reach the target and the smart rocket keeps taking the path of the shortest rocket before it.
 
 View the [live demo](http://lifazul.com/smart_rocket/)!
 
