@@ -120,6 +120,12 @@ p {
   background-image: url('../images/links/gh-white.png');
 }
 
+.personal {
+  background-image: url('../images/links/profile-white.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 #explosion {
   visibility: hidden;
   position: absolute;
