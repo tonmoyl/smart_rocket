@@ -23,6 +23,8 @@ export default class Game {
     this.resetParams = this.resetParams.bind(this);
     this.drawBarriers = this.drawBarriers.bind(this);
     this.bestTime = false;
+    this.barriersCount = 0;
+    this.barriers = {};
   }
 
   createRockets(ctx, startingPos, startingVel, parentRocket) {
@@ -176,6 +178,16 @@ export default class Game {
       8: this.barrier9,
       9: this.barrier10
     };
+  }
+
+  createNewBarrier(ctx, x, y) {
+    this.barriers[this.barriersCount] = new Barrier(ctx, [x,y]);
+    this.barriersCount += 1;
+    console.log(this.barriers);
+  }
+
+  createCustomBarrier(ctx) {
+
   }
 
   drawBarriers(ctx) {

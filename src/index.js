@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   game.createBarrier(ctx);
   var gameStart = false;
 
-  function getPosition(event) {
+  // Feed in an argument that shows where the position of the barrier is going to be
+  function createBarrier(event) {
     var x = event.x;
     var y = event.y;
 
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     y += window.scrollY;
 
     console.log("x:" + x + " y:" + y);
+    game.createNewBarrier(ctx, x, y)
   }
 
   // var runSimulation = setInterval(game.draw, interval);
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(runSimulation);
     game = new Game(ctx, interval);
     game.createRockets(ctx);
-    game.createBarrier(ctx);
+    // game.createBarrier(ctx);
     runSimulation = setInterval(game.draw, interval);
     gameStart = true;
   }
@@ -56,6 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
   buttonEnd.addEventListener('click', endSimulation);
   buttonResume.addEventListener('click', resumeSimulation);
 
-  canvas.addEventListener('click', getPosition)
+  canvas.addEventListener('click', createBarrier)
 
 });
