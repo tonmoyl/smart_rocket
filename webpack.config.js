@@ -11,23 +11,17 @@ module.exports = {
     extensions: [".js", ".jsx", "*"]
   },
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-            options: { minimize: true }
-          }
-        ]
-      }
-    ]
-  },
+   rules: [
+     {
+       test: [/\.jsx?$/],
+       exclude: /(node_modules)/,
+       use: {
+         loader: 'babel-loader',
+         query: {
+           presets: ['env']
+         }
+       },
+     }
+   ]
+ },
 };

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(runSimulation);
     game = new Game(ctx, interval);
     game.createRockets(ctx);
-    // game.createBarrier(ctx);
+    game.createBarrier(ctx);
     runSimulation = setInterval(game.draw, interval);
     gameStart = true;
   }
