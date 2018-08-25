@@ -181,7 +181,7 @@ export default class Game {
   }
 
   createNewBarrier(ctx, x, y) {
-    this.barriers[this.barriersCount] = new Barrier(ctx, [x,y]);
+    this.barriers[this.barriersCount] = new Barrier(ctx, [x-50,y-50]);
     this.barriersCount += 1;
     console.log(this.barriers);
   }
