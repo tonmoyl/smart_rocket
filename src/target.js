@@ -30,7 +30,7 @@ export default class Target {
       this.hit = true;
       this.crashRocket = rocket;
       explosion.style.top = `${canvas.offsetTop + 75 - 100}px`;
-      explosion.style.left = `${canvas.offsetLeft + 400 - 100}px`;
+      explosion.style.left = `${canvas.offsetLeft + (this.canvasWidth/2) - 100}px`;
       explosion.style.visibility = "visible";
       setTimeout(function(){
         explosion.style.visibility = "hidden";

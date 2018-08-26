@@ -6,24 +6,26 @@ font-family: 'Press Start 2P', cursive; */
 
 .main {
   display: grid;
-  grid-template-columns: 22% 22% 22% 22%;
+  grid-template-columns: 25% 700px 25%;
   grid-column-gap: 4%;
   grid-template-rows: 25% 25% 25% 25%;
 }
 
+.left-col, .mid-col, .right-col {
+  margin: 30px;
+
+}
+
 .left-col {
   grid-area:  2 / 1 / 4 / 1;
-  justify-items: center;
 }
 
 .mid-col {
-  grid-area: 2 / 2 / 4 / 4;
-  justify-items: center;
+  grid-area: 2 / 2 / 4 / 3;
 }
 
 .right-col {
-  grid-area: 2 / -1 / 4 / 4;
-  justify-items: center;
+  grid-area: 2 / -1 / 4 / 3;
 }
 
 
@@ -60,6 +62,7 @@ p {
 }
 
 .glow {
+  height: 25px;
   -webkit-animation: glow 5s;
     -moz-animation: glow 5s;
 }
@@ -110,6 +113,7 @@ p {
   color: white;
   background-color: black;
   border: 5px solid #6d201e;
+  width: 100%;
 }
 
 #time-logger {
@@ -118,6 +122,7 @@ p {
 }
 
 .links-list {
+  grid-area: 3 / 3 / 3 / 3;
   padding-top: 40px;
   margin: auto;
   width: 400px;
