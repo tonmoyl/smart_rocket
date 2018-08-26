@@ -1,8 +1,8 @@
 
 export default class Barrier {
   constructor(ctx, pos) {
-    this.width = 100;
-    this.height = 100;
+    this.width = 50;
+    this.height = 50;
     this.canvasHeight = document.getElementById('canvas').height;
     this.canvasWidth = document.getElementById('canvas').width;
     this.ctx = ctx;
