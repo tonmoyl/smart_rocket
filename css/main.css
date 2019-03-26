@@ -122,7 +122,7 @@ p {
 }
 
 .links-list {
-  grid-area: 3 / 3 / 3 / 3;
+  grid-area: 5 / 3 / 5 / 3;
   padding-top: 40px;
   margin: auto;
   width: 400px;
